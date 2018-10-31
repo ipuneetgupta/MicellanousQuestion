@@ -1,0 +1,25 @@
+public class Main {
+    //elephant=shifted 2 ahead index ==>ephantel
+      public static String ShifingString(char []str,int k){
+          char []ans=new char[str.length];
+       for(int i=0;i<str.length;i++){
+           int shiftIndex=(i+k)%str.length;        //this concept is applicable any of circular array
+           ans[shiftIndex]=str[i];
+       }
+         String st=" ";
+          for(int i=0;i<ans.length;i++){
+              st+=ans[i];
+       } 
+       return st;
+      }
+    public static void main(String args[]) {
+        String s="elephant";
+        char[] str =s.toCharArray();
+       //   char[] ans=ShifingString(str,2);
+       String ans=(ShifingString(str,2));
+//  for(int i=0;i<ans.length;i++){
+//            System.out.print(ans[i]+" ");
+//        }    
+         System.out.print(ans);
+}
+}

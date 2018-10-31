@@ -1,0 +1,34 @@
+#include <iostream>
+#include<string.h>
+using namespace std;
+void RecSubSequence(char *,char *,int ,int );
+//Recursive SubsequenceSequence
+void RecSubSequence(char inp[],char out[],int i,int j){
+    //base case
+    if(inp[i]=='\0'){
+        out[j]='\0';
+        cout<<out<<endl;
+        return;
+    }
+    //rec case
+
+    //including case;
+    out[j]=inp[i];
+    RecSubSequence(inp,out,i+1,j+1);
+
+    //Excluding case
+    out[j]='\0';
+    RecSubSequence(inp,out,i+1,j);
+    
+}
+int main() {
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++){
+    char arr[100];
+    cin>>arr;
+    char out[100];
+    RecSubSequence(arr,out,0,0);
+        cout<<endl;
+    }
+}

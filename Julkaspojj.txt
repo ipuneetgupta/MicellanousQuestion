@@ -1,0 +1,26 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+
+     class julka {//in spoj upload it is always class not public class
+     static void JulkaJulka(BigInteger n,BigInteger k){
+
+        BigInteger x,y;
+        x=n.subtract(k);
+        x=x.divide(BigInteger.valueOf(2));
+
+         y=x.add(k);
+
+        System.out.println(y);
+        System.out.println(x);
+    }
+    public static void main(String args[]) {
+        Scanner scn=new Scanner(System.in);
+       BigInteger n,k;
+        int test=10;
+        for(int i=0;i<10;i++){
+         n=scn.nextBigInteger();
+         k=scn.nextBigInteger();
+            JulkaJulka(n,k);
+        }
+    }
+}

@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+void PrintGrid(char Grid[100][100],int m,int n){
+    static int GridSize=-1;
+    GridSize++;
+    if(GridSize==0){
+        cout<<"original Grid :  "<<GridSize<<endl;
+    }else{
+      cout<<"GridFormed  :  "<<GridSize<<endl;
+    }
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            cout<<Grid[i][j];
+        }
+             cout<<endl;
+    }
+           cout<<endl;
+}
+void InitGrid(char Grid[100][100],int m,int n){
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            Grid[i][j]='0';
+        }
+    }
+}
+void PrintAllPath(char Grid[100][100],int m,int n,int x,int y){
+    //base case
+  if(x==m-1&&y==n-1){
+    Grid[x][y]='1';
+    PrintGrid(Grid,m,n);
+    Grid[x][y]='0';
+    return ;
+  }
+  if(x<m&&y<n){
+      //rec case
+      Grid[x][y]='1';
+      PrintAllPath(Grid,m,n,x+1,y);
+     PrintAllPath(Grid,m,n,x,y+1);
+
+     //back trace
+     Grid[x][y]='0';
+   //  return ;
+  }
+  return ;
+}
+int main() {
+    int m,n;
+    cout<<"enter the grid size :"<<endl;
+    cin>>m>>n;
+    char Grid[100][100];
+    InitGrid(Grid,m,n);
+    PrintGrid(Grid,m,n);
+    PrintAllPath(Grid,m,n,0,0);
+    
+    return 0;
+}

@@ -1,0 +1,109 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+#define ll long long
+#define mod 1000000000
+#define vec vector<ll>
+#define matrix vector<vector<ll>>
+vec b,c;
+int k;
+matrix multiply(matrix a,matrix b){
+    matrix c(k+4,vector<ll>(k+4));
+    for(int i=1;i<=k+3;i++){
+        for(int j=1;j<=k+3;j++){
+            for(int x=1;x<=k+3;x++){
+              c[i][j]=(c[i][j]+a[i][x]*b[x][j])%mod;
+            }
+        }
+    }
+    return c;
+}
+matrix pow(matrix a,ll b){
+    if(b==1){
+        return a;
+    }
+    if(b&1){
+        return multiply(a,pow(a,b-1));
+    }
+    else{
+        return multiply(pow(a,b/2),pow(a,b/2));
+    }
+}
+
+ll compute(ll n){
+    if(n==0){
+        return 0;
+    }
+    if(n<=k){
+        return b[n-1];
+    }
+    else{
+        //F1 matrix
+        vec F1(k+4);
+        for(int i=1;i<=k+3;i++){
+            if(i==1)F1[i]=0;
+            else {
+                F1[i]=c[i-1];
+            }
+        }
+        //Transformation matrix
+        matrix T(k+4,vector<ll>(k+4));
+        for(int i=1;i<=k+3;i++){
+            for(int j=1;j<=k+3;j++){
+                if(i==1){
+                T[i][j]=1;
+                continue;
+                }
+                for(int x=1;x<=i-1;x++){
+                    T[i][x]=0;
+                }
+               T[2][3]=2/3;
+               T[3][4]=4/5;
+               T[2][4]=2/5;
+           if(i==j){
+               T[i][j]=1;
+           }
+            }
+        }
+   //======================================================
+
+   for(int i=1;i<=k+3;i++){
+       for(int j=1;j<=k+3;j++){
+           cout<<T[i][j]<<" ";
+       }
+       cout<<endl;
+   }     
+   cout<<endl;
+   //======================================================
+   //calculate T^n-1
+   T=pow(T,n);
+   //now return the first element in f2=T^n*f1;
+   ll res=0;
+   for(int i=1;i<=k+3;i++){
+       res=(res+T[1][i]*F1[i])%mod;
+   }
+   return res;
+    }
+}
+int main() {
+   int test;
+   cin>>test;
+   for(int i=0;i<test;i++){
+    cin>>k;
+    ll num;
+    for(int j=0;j<k;j++){
+     cin>>num;
+     b.push_back(num);
+    }
+    for(int j=0;j<k+4;j++){
+         cin>>num;
+         c.push_back(num);
+    }
+    ll n;
+    cin>>n;
+    ll ans=compute(n);
+    cout<<ans<<endl;
+    b.clear();
+    c.clear();
+   }
+}

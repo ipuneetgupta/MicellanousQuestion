@@ -1,0 +1,32 @@
+#include <iostream>
+#include<string>
+#include<vector>
+using namespace std;
+vector<string> GetBoardpath(int curr,int end){
+    if(curr==end){
+        vector<string>baseresult;
+        baseresult.push_back(" ");
+        return baseresult;
+    }
+    if(curr>end){
+        vector<string>baseresult;
+        return baseresult;
+    }
+    vector<string> myresult;
+    vector<string>recresult;
+    for(int dice=1;dice<=6;dice++){
+      recresult=GetBoardpath(curr+dice,end);
+      for(unsigned int i=0;i<recresult.size();i++){
+          myresult.push_back(to_string(dice)+recresult[i]);
+      }
+    }
+    return myresult;
+}
+int main() {
+   int curr,end;
+   cin>>curr>>end;
+  vector<string> ans= GetBoardpath(curr,end);
+  for(int i=0;i<ans.size();i++){
+      cout<<ans[i]<<endl;
+  }
+}

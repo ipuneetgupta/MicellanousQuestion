@@ -1,0 +1,26 @@
+ import java.util.Scanner;
+ import java.math.BigInteger;
+ 
+ class ATOMS {
+   static BigInteger power(BigInteger n,BigInteger k){
+         BigInteger a=BigInteger.ONE;
+         BigInteger b=BigInteger.valueOf(2);
+         BigInteger c=BigInteger.ZERO;
+         if(k.compareTo(c)==0){
+             return a;
+         }
+         
+          if((k.mod(b)).compareTo(c)==0){
+             BigInteger n1=power(n,k.divide(b));
+             return (n1.multiply(n1));
+         }else{
+           BigInteger n1=power(n,k.divide(b));
+           return (n1.multiply(n1)).multiply(n);
+         }
+     }
+    
+    public static void main(String args[]) {
+     	System.out.println(power(BigInteger.valueOf(2),BigInteger.valueOf(4)));
+
+    }
+}

@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+int dp[100];
+int CatalanNO(int n){
+    if(n==0){
+        return 1;
+    }
+    if(dp[n]!=0){
+        return dp[n];
+    }
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        ans+=CatalanNO(i-1)*CatalanNO(n-i);
+    }
+    dp[n]=ans;
+    return ans;
+}
+int main() {
+    int n;
+    cin>>n;
+    cout<<CatalanNO(n)<<endl;
+}

@@ -1,0 +1,33 @@
+#include <iostream>
+#include<string>
+#include<vector>
+#include<algorithm>
+using namespace std;
+#define ll long long
+bool compare(const pair<string,int> &a,const pair<string,int> &b){
+    if(a.second==b.second){
+        return a.first<b.first;
+    }else{
+        return a.second>b.second;
+    }
+}
+int main() {
+    int x;
+     ll n;
+    cin>>x>>n;
+    vector <pair<string,int>> vec;
+    for(ll i=0;i<n;i++) {
+        string s;
+        int p;
+        cin>>s>>p;
+        vec.push_back(make_pair(s,p));
+    }
+    sort(vec.begin(),vec.end(),compare);
+    for(ll i=0;i<n;i++){
+        if(vec[i].second>=x){
+            cout<<vec[i].first<<" "<<vec[i].second<<endl;
+        }
+    }
+   return 0;
+}
+

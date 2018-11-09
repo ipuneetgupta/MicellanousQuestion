@@ -1,0 +1,101 @@
+#include <iostream>
+#include<bits/stdc++.h>
+#include<string>
+#include<string.h>
+using namespace std;
+//check the string has not same character at adjacent position
+bool InOrValid(char *str,int n){
+for(int i=1;i<n;i++){
+    if(str[i-1]==str[i]){
+        return false;
+    }
+}
+return true;
+}
+// if  string  no duplicate character then return true;using ascii code for checking
+bool IsdupChar(int *arr){
+    for(int i=0;i<126;i++){
+        if(arr[i]>1){
+            return false;
+        }
+    }
+    return true;
+}
+//This function count the character inside char array
+int countChar(char *c){
+    int i=0;
+    while(c[i]!='\0'){
+        i++;
+    }
+    return i;
+}
+int TwoCharacter(char str[],int n){
+    //count distinct character in string
+    int DChar[126];
+    for(int i=0;i<126;i++) DChar[i]=0;
+    for(int i=0;i<n;i++){
+           DChar[str[i]]+=1;
+    }
+    
+    int cnt=0;
+    char Dcharc[30];
+    for(int i=0;i<126;i++){
+        if(DChar[i]){
+           Dcharc[cnt]=i;
+           cnt++;
+        }
+    }
+    // for(int i=0;i<cnt;i++){
+    //     cout<<Dcharc[i]<<" ";
+    // }
+    // cout<<endl;
+
+    //check the string is contain only distinct character
+    if(IsdupChar(DChar)&&n==2) return n;
+    char temp[n];
+    int ans=0;
+  //now we pair two distinct char and remove every instance of that char from dummy char temp
+for(int i=1;i<cnt;i++){
+    strcpy(temp,str);
+    char a[n];
+    char b[n];
+    int r=0,l=0;;
+    //Here we remove every instance of first char
+    for(int j=0;j<n;j++){
+         if(temp[j]!=Dcharc[i-1]){
+             a[r]=temp[j];
+             r++;
+         }
+    }
+    // for(int p=0;p<r;p++){
+    //     cout<<a[p]<<" ";
+    // }
+    // cout<<endl;
+    //Here we remove second char every instance
+    for(int k=0;k<r;k++){
+        if(a[k]!=Dcharc[i]){
+            b[l]=a[k];
+            l++;
+        }
+    }
+    //  for(int p=0;p<n;p++){
+    //     cout<<b[p]<<" ";
+    // }
+   cout<<endl;
+    if(InOrValid(b,l)){
+       if(ans<l){
+           ans=l;
+       }
+    }else continue;
+}
+   return ans;
+}
+int main() {
+    int n;
+    cin>>n;
+   string str;
+   cin>>str;
+   char st[1001];
+   strcpy(st,str.c_str());
+   cout<<TwoCharacter(st,n);
+}

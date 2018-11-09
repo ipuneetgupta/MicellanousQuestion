@@ -1,0 +1,29 @@
+#include <iostream>
+#include<string>
+using namespace std;
+void MarsMission(string str){
+    int NoSignal=str.size()/3;
+    char signal[NoSignal*3];
+    int a=0;
+    int ans=0;
+    for(int i=0;i<NoSignal;i++){
+          signal[a++]='S';
+          signal[a++]='O';
+          signal[a++]='S';
+    }
+    // for(int i=0;i<NoSignal*3;i++){
+    //     cout<<signal[i]<<" ";
+    // }
+    //COMPARE
+    for(int i=0;i<str.size();i++){
+        if(signal[i]!=str[i]){
+            ans++;
+        }
+    }
+    cout<<ans<<endl;
+}
+int main() {
+    string str;
+    cin>>str;
+    MarsMission(str);
+}

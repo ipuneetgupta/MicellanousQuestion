@@ -1,0 +1,34 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+int testcase;
+char mat[55][55];
+cin>>testcase;
+for(int i=0;i<testcase;i++){
+int M,N,K;
+cin>>M>>N>>K;
+vector <int> cave(M,0);
+for(int i=0;i<M;i++){
+    for(int j=0;j<N;j++){
+        cin>>mat[i][j];
+        if(mat[i][j]=='*'){
+            ++cave[i];
+        }
+    }
+}
+sort(cave.begin(),cave.end(),less<int>());
+int idx=0;
+while(K>0&&(idx<M)&&(cave[idx]<N-cave[idx])){
+    cave[idx]=N-cave[idx];
+    ++idx;
+    --K;
+}
+if(K!=0&&K%2==1){
+    auto it=min_element(cave.begin(),cave.end());
+    *it=N-*it;
+}
+cout<<accumulate(cave.begin(),cave.end(),0)<<"\n";
+}
+return 0;
+}

@@ -1,0 +1,47 @@
+import java.util.Scanner;
+import java.math.BigInteger;
+// QUES - if any atom is break k no. of atom at every sec so tell me how many sec take atom to reach m no,if initial no. of atom is n
+class Atoms {
+	static BigInteger power(BigInteger n, BigInteger k) {
+		BigInteger a = BigInteger.ONE;
+		BigInteger b = BigInteger.valueOf(2);
+		BigInteger c = BigInteger.ZERO;
+		if (k.compareTo(c) == 0) {
+			return a;
+		}
+
+		if ((k.mod(b)).compareTo(c) == 0) {
+			BigInteger n1 = power(n, k.divide(b));
+			return (n1.multiply(n1));
+		} else {
+			BigInteger n1 = power(n, k.divide(b));
+			return (n1.multiply(n1)).multiply(n);
+		}
+	}
+
+	static void Atoms(BigInteger n, BigInteger k, BigInteger m) {
+		BigInteger pow = BigInteger.ONE;
+		BigInteger cnt = BigInteger.ZERO;
+		while (n.compareTo(m) != 1) {
+			System.out.println(n);
+			n = power(n, k);
+			cnt = cnt.add(pow);
+			// System.out.println(cnt);
+		}
+		System.out.println(cnt);
+	}
+
+	public static void main(String args[]) {
+		BigInteger n, k, m;
+		Scanner scn = new Scanner(System.in);
+		int test;
+		test = scn.nextInt();
+		for (int i = 0; i < test; i++) {
+			n = scn.nextBigInteger();
+			k = scn.nextBigInteger();
+			m = scn.nextBigInteger();
+			Atoms(n, k, m);
+		}
+		// System.out.println(power(BigInteger.valueOf(2),BigInteger.valueOf(4)));
+	}
+}

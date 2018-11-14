@@ -1,0 +1,74 @@
+#include <iostream>
+#include<vector>
+#include<algorithm>
+#include<cmath>
+using namespace std;
+#define num vector<long>
+num no1,no2;
+long revSum(long a,long b){
+    num c;
+    while(a>0){
+    long rem=a%10;
+     no1.push_back(rem);
+     a=a/10;
+    }
+      while(b>0){
+    long rem=b%10;
+     no2.push_back(rem);
+     b=b/10;
+    }
+   int carry=0;
+   int sum=0;
+   long size1=no1.size();
+   long size2=no2.size();
+   long i,j;
+   for(i=size1-1,j=size2-1;i>=0&&j>=0;j--,i--){
+      sum=no1[i]+no2[j]+carry;
+      int add=sum%10;
+      c.push_back(add);
+      carry=sum/10;
+   }
+   if(i<0&&j<0&&carry!=0){
+       c.push_back(carry);
+   }
+   while(i>=0){
+       if(carry!=0){
+       sum==no1[i]+carry;
+        int add=sum%10;
+        carry=sum/10;
+        c.push_back(add);}
+        else{
+            c.push_back(no1[i]);
+        }
+      i--;
+   }
+   while(j>=0){
+      if(carry!=0){
+       sum==no2[j]+carry;
+        int add=sum%10;
+        carry=sum/10;
+        c.push_back(add);}
+        else{
+            c.push_back(no2[j]);
+        }
+      i--;
+   }
+   long ans=0;
+   for(unsigned int i=0, p=c.size()-1;p>=0&&i<c.size();--p,i++){
+     ans=ans+c[i]*pow(10,p);
+   }
+   return ans;
+}
+int main() {
+int test;
+cin>>test;
+for(int i=0;i<test;i++){
+    long a,b;
+    cin>>a>>b;
+    long ans=revSum(a,b);
+    cout<<ans<<endl;
+    no1.clear();
+    no2.clear();
+}
+return 0;
+}

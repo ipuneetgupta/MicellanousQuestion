@@ -1,0 +1,97 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+#define ll long long
+typedef vector<vector<ll>> matrix;
+vector<ll> b,c;
+ll k,p;
+// matrix multiplication 
+  matrix multiply(matrix a,matrix b){
+      matrix c(k+2,vector<ll>(k+2));
+      for(int i=1;i<=k+1;i++){
+          for(int j=1;j<=k+1;j++){
+              for(int x=1;x<=k+1;x++){
+               c[i][j]=(c[i][j]+(a[i][x]*b[x][j])%p)%p;
+              }
+          }
+      }
+      return c;
+  }
+  // matrix^n---power
+  matrix pow(matrix a,ll n){
+      if(n==1){
+          return a;
+      }
+      if(n&1){//odd
+       return multiply(a,pow(a,n-1));
+      }else{
+          matrix X=pow(a,n/2);
+          return multiply(X,X);
+      }
+  }
+//computer the nth sum
+ ll compute(ll n){
+     if(n==0){
+         return 0;
+     }
+     //F1 matrix 
+     vector<ll> F1(k+2);
+     for(int i=2;i<=k+1;i++){
+       F1[i]=b[i-2];
+     }
+     //Transformation matrix
+     matrix T(k+2,vector<ll>(k+2));
+     for(int i=1;i<=k+1;i++){
+         for(int j=1;j<=k+1;j++){
+             if(i<k+1){
+             if(j==1){
+                 if(i==1)T[i][j]=1;
+                 else T[i][j]=0;
+             }else{
+                 if(i+1==j)T[i][j]=1;
+                 else T[i][j]=0;
+             }
+               continue;
+           }
+           //last rows work
+           if(j==1) T[i][j]=0;
+           else T[i][j]=c[k+1-j];
+         }
+     }
+     //now find T^n matrix
+     T=pow(T,n);
+     ll res=0;
+     for(int i=1;i<=k+1;i++){
+         res=(res+(T[1][i]*F1[i])%p)%p;
+     }
+     return res;
+ }
+int main() {
+    int test;
+    cin>>test;
+    int num;
+    for(int i=0;i<test;i++){
+        cin>>k;
+        ll m,n;
+        //F1 matrix
+        for(int i=0;i<k;i++){
+             cin>>num;
+             b.push_back(num);
+        }
+        //coefficient
+         for(int i=0;i<k;i++){
+             cin>>num;
+             c.push_back(num);
+        }
+        cin>>m>>n>>p;
+        ll r=compute(m-1);
+        ll l=compute(n);
+        ll ans=l-r;
+        if(ans<0){
+          ans+=p;
+        }
+        cout<<ans;
+        b.clear();
+        c.clear();
+    }
+}

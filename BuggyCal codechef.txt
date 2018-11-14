@@ -1,0 +1,34 @@
+#include <iostream>
+#include<cmath>
+using namespace std;
+#define l long
+l WrongCalc(l a,l b){
+    l ans=0;
+    int i=0,a1=0,b1=0;
+    while(a>0||b>0){
+         a1=0;
+         b1=0;
+        if(a>0){
+         a1=a%10;
+        }
+        if(b>0){
+         b1=b%10;
+        }
+        int sum=(a1+b1)%10;
+        ans=ans+sum*pow(10,i);
+        i++; 
+        a=a/10;
+        b=b/10;
+    }
+    return ans;
+}
+int main() {
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++){
+        l a,b;
+        cin>>a>>b;
+   cout<<WrongCalc(a,b)<<endl;
+
+    }
+}

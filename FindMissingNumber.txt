@@ -1,0 +1,21 @@
+def Find_Mis_No(arr,n):
+    i=0
+    j=n-1
+    mid=0
+    while j-i>1:
+       mid=(i+j)//2
+       if(arr[i]-i)!=(arr[mid]-mid):
+             b=mid
+       elif(arr[j]-j)!=(arr[mid]-mid):
+             a=mid
+
+    return arr[mid]+1
+
+n=int(input("enter the no of element in array::"))
+arr=list()
+for i in range(n):
+  x=input("enter the no")
+  arr.append(x)
+
+ans=Find_Mis_No(arr,n)
+print(ans)

@@ -1,6 +1,8 @@
 //depth first search
 #include<bits/stdc++.h>
 #include<cstring>
+#include<queue>
+#include<stack>
 #include<list>
 
 using namespace std;
@@ -30,7 +32,7 @@ class Graph{
 	           	rec_dfsHelper(p,isVisited);
 	           }
 	     	}
-	     }
+	 }
 
    void rec_dfs(int node){
    	 bool *isVisited = new bool[v];
@@ -38,16 +40,46 @@ class Graph{
      for(int i=0;i<this->v;i++){
      	isVisited[i] = false;
      }
-
      rec_dfsHelper(node,isVisited);
+     cout<<endl;
      
    }
     //iterative functoion to find dfs
-    void iter_dfsHelper(){
+    void iter_bfs(int node){
+      
+    }
+
+
+    //recursive bfs
+    void rec_bfsHelper(int node,bool *isVisited){
 
     }
-    void iter_dfs(){
 
+    void rec_bfs(int node){
+
+    }
+    // iterative breadth first search
+    void iter_bfs(int node){
+      
+      bool *isVisited = new bool[this->v];
+      for(int i=0;i<this->v;i++){
+        isVisited[i] = false;
+      }
+      //intitate queue for dfs bcz it first come first 
+      //service bcz of this propety depth search happem
+      queue<int> q;
+      q.push(node);
+      while(!q.empty()){
+        int currNode = q.front();
+        q.pop();
+        cout<<currNode<<" ";
+        isVisited[currNode] = true;
+        //find neighboures
+        for(auto i : this->adj[currNode]){
+          if(!isVisited[i]) q.push(i);
+        } 
+      }
+      cout<<endl;
     }
 };
 
@@ -58,6 +90,10 @@ int main()
    Graph g = Graph(5);
    g.addEdge(0,1);
    g.addEdge(2,3);
+   g.addEdge(1,3);
    g.addEdge(0,4);
+   cout<<"recursive DFS::"<<endl;
    g.rec_dfs(0);
+   cout<<"Iterative dfs::"<<endl;
+   g.iter_dfs(0);
 } 

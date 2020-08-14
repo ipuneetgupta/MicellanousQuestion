@@ -20,7 +20,7 @@ class Graph{
 
     void addEdge(int u,int v){
       this->adj[u].push_back(v);
-      this->adj[v].push_back(u);
+      // this->adj[v].push_back(u);
     }
     // recursive function to find dfs 
 
@@ -45,35 +45,60 @@ class Graph{
      
    }
     //iterative functoion to find dfs
-    void iter_bfs(int node){
-      
+    void iter_dfs(int node){
+      bool *isVisited = new bool[this->v];
+      for(int i = 0;i<this->v;i++){
+        isVisited[i] = false;
+      }
+      stack<int> s;
+      s.push(node);
+      while(!s.empty()){
+        int currNode = s.top();
+        s.pop();
+        if(!isVisited[currNode]){
+          cout<<currNode<<" ";
+          isVisited[currNode] = true;
+        }        
+        for(auto i : this->adj[currNode]){
+          if(!isVisited[i]){
+            s.push(i);
+          }
+        }
+      }
+      cout<<endl;
     }
 
 
     //recursive bfs
-    void rec_bfsHelper(int node,bool *isVisited){
+    void rec_bfsHelper(int node,vector<bool> &isVisited){
 
     }
 
     void rec_bfs(int node){
 
+      vector<bool> isVisited(this->v,false);
+      for(auto i : this->adj[node]){
+        
+      }
     }
     // iterative breadth first search
     void iter_bfs(int node){
-      
+
       bool *isVisited = new bool[this->v];
       for(int i=0;i<this->v;i++){
         isVisited[i] = false;
       }
-      //intitate queue for dfs bcz it first come first 
-      //service bcz of this propety depth search happem
+      //intitate queue for bfs
+
       queue<int> q;
       q.push(node);
       while(!q.empty()){
         int currNode = q.front();
         q.pop();
-        cout<<currNode<<" ";
-        isVisited[currNode] = true;
+        if(!isVisited[currNode]){
+          cout<<currNode<<" ";
+          isVisited[currNode] = true;
+        }
         //find neighboures
         for(auto i : this->adj[currNode]){
           if(!isVisited[i]) q.push(i);
@@ -88,12 +113,15 @@ class Graph{
 int main() 
 { 
    Graph g = Graph(5);
-   g.addEdge(0,1);
-   g.addEdge(2,3);
-   g.addEdge(1,3);
-   g.addEdge(0,4);
+   g.addEdge(1, 0); 
+   g.addEdge(0, 2); 
+   g.addEdge(2, 1); 
+   g.addEdge(0, 3); 
+   g.addEdge(1, 4); 
    cout<<"recursive DFS::"<<endl;
    g.rec_dfs(0);
-   cout<<"Iterative dfs::"<<endl;
+   cout<<"iterative DFS::"<<endl;
    g.iter_dfs(0);
+   cout<<"Iterative bfs::"<<endl;
+   g.iter_bfs(0);
 } 

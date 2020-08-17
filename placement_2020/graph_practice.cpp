@@ -69,18 +69,6 @@ class Graph{
     }
 
 
-    //recursive bfs
-    void rec_bfsHelper(int node,vector<bool> &isVisited){
-
-    }
-
-    void rec_bfs(int node){
-
-      vector<bool> isVisited(this->v,false);
-      for(auto i : this->adj[node]){
-        
-      }
-    }
     // iterative breadth first search
     void iter_bfs(int node){
 
@@ -106,6 +94,12 @@ class Graph{
       }
       cout<<endl;
     }
+
+
+    // isbipartite or coloring a graph
+    bool isBipartite(){
+      
+    }
 };
 
 
@@ -124,4 +118,6 @@ int main()
    g.iter_dfs(0);
    cout<<"Iterative bfs::"<<endl;
    g.iter_bfs(0);
+   cout<<"recursive BFS::"<<endl;
+   g.isBipartite(0);
 } 

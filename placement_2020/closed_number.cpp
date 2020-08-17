@@ -54,4 +54,6 @@ int main(){
     for(auto it : st){
     	cout<<it.first<<" , "<<it.second<<endl;
     }
+    cout<<"Sorting Through Multimap ::"<<endl;
+    
 }

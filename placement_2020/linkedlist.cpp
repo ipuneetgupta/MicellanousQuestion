@@ -83,8 +83,41 @@ public:
       		prev->next = prev->next->next;
       }
 	}
+
+
+	void reversePI(){
+	   if (this->head==NULL&&
+	   	this->head->next==NULL
+	   	) return;
+
+       Node *prev = NULL;
+       Node *curr = this->head;
+       while(curr!=NULL){
+       	Node *nCurr = curr->next;
+       	Node *nPrev = curr;
+       	curr->next = prev;
+       	prev = nPrev;
+       	curr = nCurr;
+       }
+       this->head = prev;
+	}
+
+	void reversePR(){
+		reverseHelperPR(this->head);
+	}
+
+	Node* reverseHelperPR(Node *node){
+		if(node==NULL) return NULL;
+        if(node->next==NULL)this->head = node;return node;
+        Node *returnNode = reverseHelperPR(node->next);
+        returnNode->next = node;
+        node->next = NULL;
+        return returnNode;
+	}
     
+
     int midNode(){
+    	if(this->head==NULL) return -1;
     	Node *slow = this->head;
     	Node *fast = this->head;
     	while(fast->next!=NULL&&fast->next->next!=NULL){
@@ -92,6 +125,21 @@ public:
     		slow = slow->next;
     	}
     	return slow->data;
+    }
+
+    int kthNodeFromEnd(int k){
+      Node *slow = this->head;
+      while(k>1&&slow->next!=NULL){
+      	slow = slow->next;
+      	k--;
+      }
+      if(k>1) return -1;
+      Node *fast = this->head;
+      while(slow->next!=NULL){
+      	fast = fast->next;
+      	slow = slow->next;
+      }
+      return fast->data;
     }
 
 	void display(){
@@ -127,4 +175,14 @@ int main(){
 	list.removeAt(9);
 	list.display();
 	cout<<list.midNode()<<endl;;
+	cout<<list.kthNodeFromEnd(1)<<endl;
+	cout<<list.kthNodeFromEnd(3)<<endl;
+    cout<<list.kthNodeFromEnd(5)<<endl;
+    cout<<list.kthNodeFromEnd(8)<<endl;
+	list.display();
+    list.reversePI();
+    list.display();
+    list.reversePR();
+    list.display();
+
 }
